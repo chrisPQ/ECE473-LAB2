@@ -27,7 +27,14 @@ main()
 
 
     if(shift_debounce(&PIND, 5)) {
-      PORTB ^= (1<<2);
+      if(!bit_is_set(PORTB, 2)) {
+        PORTB |= (1<<2);
+      }
+    }
+    else if(!shift_debounce(&PIND, 5)) {
+      if(bit_is_set(PORTB, 2)) {
+        PORTB ^= (1<<2);
+      }
     }
 
 
